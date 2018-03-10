@@ -24,6 +24,20 @@ void LEDRainbowEffect::brightness(byte brightness) {
 
 
 // ---------
+LEDRainbowWaveEffect::LEDRainbowWaveEffect(byte brightness) {
+  this->brightness(brightness);
+}
+
+LEDRainbowWaveEffect::LEDRainbowWaveEffect(byte brightness, uint16_t delay) {
+  this->brightness(brightness);
+  this->delay(delay);
+}
+
+LEDRainbowWaveEffect::LEDRainbowWaveEffect(byte brightness, uint16_t delay, uint8_t precision) {
+  this->brightness(brightness);
+  this->delay(delay);
+  this->precision(precision);
+}
 
 void LEDRainbowWaveEffect::update(void) {
   if (rainbow_current_ticks++ < rainbow_wave_ticks) {
@@ -49,6 +63,15 @@ void LEDRainbowWaveEffect::update(void) {
 void LEDRainbowWaveEffect::brightness(byte brightness) {
   rainbow_value = brightness;
 }
+
+void LEDRainbowWaveEffect::delay(uint16_t delay_ticks) {
+  rainbow_wave_ticks = delay_ticks;
+}
+
+void LEDRainbowWaveEffect::precision(uint8_t hues_to_skip) {
+  rainbow_wave_steps = hues_to_skip;
+}
+
 }
 
 kaleidoscope::LEDRainbowEffect LEDRainbowEffect;
