@@ -35,7 +35,7 @@ class LEDRainbowWaveEffect : public LEDMode {
 
   uint8_t rainbow_wave_steps = 1;  //  number of hues we skip in a 360 range per update
   uint16_t rainbow_current_ticks = 0;
-  uint16_t rainbow_wave_ticks = 10;  //  delays between update
+  uint16_t rainbow_wave_ticks = 30;  //  delays between update
 
   byte rainbow_saturation = 255;
   byte rainbow_value = 50;
