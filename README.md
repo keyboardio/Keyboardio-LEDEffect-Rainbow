@@ -22,20 +22,38 @@ To use the plugin, include the header, and tell the firmware to use either (or
 both!) of the effects:
 
 ```c++
+#include <Kaleidoscope-LEDControl.h>
 #include <Kaleidoscope-LEDEffect-Rainbow.h>
 
-void setup() {
-  Kaleidoscope.use(&LEDRainbowEffect, &LEDRainbowWaveEffect);
+KALEIDOSCOPE_INIT_PLUGINS(LEDRainbowEffect, LEDRainbowWaveEffect);
 
+void setup() {
   Kaleidoscope.setup();
+
+  LEDRainbowEffect.brightness(150);
+  LEDRainbowWaveEffect.brightness(150);
+  LEDRainbowWaveEffect.update_delay(50);
 }
 ```
 
 ## Plugin methods
 
 The plugin provides two objects: `LEDRainbowEffect`, and `LEDRainbowWaveEffect`,
-neither of which have any public methods or properties, outside of those
-provided by all LED modes.
+both of which provide the following methods:
+
+### `.brightness([brightness])`
+
+> Sets (or gets, if called without an argument) the LED brightness for the
+> effect.
+>
+> Defaults to 50.
+
+### `.update_delay([delay])`
+
+> Sets (or gets, if called without an argument) the number of milliseconds
+> between effect updates. Smaller number results in faster rainbows.
+>
+> Defaults to 40.
 
 ## Dependencies
 
