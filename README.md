@@ -30,30 +30,55 @@ KALEIDOSCOPE_INIT_PLUGINS(LEDRainbowEffect, LEDRainbowWaveEffect);
 void setup() {
   Kaleidoscope.setup();
 
-  LEDRainbowEffect.brightness(150);
-  LEDRainbowWaveEffect.brightness(150);
-  LEDRainbowWaveEffect.update_delay(50);
+  LEDRainbowEffect.breathe = true;
+  LEDRainbowEffect.hue_update_interval = 128;
+  // to get a full hue cycle in ‘n’ breath cycles,
+  // set the hue_update_interval to ‘n × 16’
+
+  LEDRainbowWaveEffect.saturation = 200;
+  LEDRainbowWaveEffect.hue_steps = -1;
+  LEDRainbowWaveEffect.brightness = 150;
 }
 ```
 
-## Plugin methods
+## Plugin properties
 
 The plugin provides two objects: `LEDRainbowEffect`, and `LEDRainbowWaveEffect`,
-both of which provide the following methods:
+both of which provide the following properties:
 
-### `.brightness([brightness])`
+### `.hue_steps`
 
-> Sets (or gets, if called without an argument) the LED brightness for the
-> effect.
+> The number of steps the hue is changed every `hue_update_interval`
+> milliseconds. Smaller values make smoother rainbows. Negative values make
+> reverse rainbows.
 >
-> Defaults to 50.
+> Defaults to +1.
 
-### `.update_delay([delay])`
+### `.hue_update_interval`
 
-> Sets (or gets, if called without an argument) the number of milliseconds
-> between effect updates. Smaller number results in faster rainbows.
+> The number of milliseconds between hue updates. Smaller values make faster
+> rainbows.
 >
 > Defaults to 40.
+
+### `.saturation`
+
+> The saturation of the rainbow colors. Lesser values result in more pastel
+> colors and greater ones result in more vibrant colors.
+>
+> Defaults to 255 (max).
+
+### `.breathe`
+
+> Whether the rainbow effect is to be mixed with a "breathe" effect or not.
+>
+> Defaults to `false`.
+
+### `.brightness`
+
+> The LED brightness for the effect if breathing is not enabled.
+>
+> Defaults to 50.
 
 ## Dependencies
 
