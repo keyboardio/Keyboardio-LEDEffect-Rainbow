@@ -1,17 +1,19 @@
 #include "Kaleidoscope-LEDEffect-Rainbow.h"
+#define UPDATE_INTERVAL 50  // milliseconds between two LED updates to avoid overloading; 20 fps
 
 namespace kaleidoscope {
 
 void LEDRainbowEffect::update(void) {
   uint16_t now = millis();
   if ((now - last_hue_update) < hue_update_interval) {
-    if (!breathe) { // no updates either due to hue change or breathing
+    if (!breathe || (now - last_update) < UPDATE_INTERVAL) {  // no updates either due to hue change or breathing
       return;
     }
   } else {
     hue += hue_steps;
     last_hue_update = now;
   }
+  last_update = now;
 
   cRGB rainbow = breathe ?
                  breath_compute_helper(hue, saturation, now) :
@@ -24,13 +26,14 @@ void LEDRainbowEffect::update(void) {
 void LEDRainbowWaveEffect::update(void) {
   uint16_t now = millis();
   if ((now - last_hue_update) < hue_update_interval) {
-    if (!breathe) { // no updates either due to hue change or breathing
+    if (!breathe || (now - last_update) < UPDATE_INTERVAL) {  // no updates either due to hue change or breathing
       return;
     }
   } else {
     hue += hue_steps;
     last_hue_update = now;
   }
+  last_update = now;
 
   for (uint8_t i = 0; i < LED_COUNT; i++) {
     uint16_t key_hue = hue + 16 * (i / 4);

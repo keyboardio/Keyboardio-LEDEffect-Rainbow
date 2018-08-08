@@ -18,6 +18,7 @@ class LEDRainbowEffect : public LEDMode {
  private:
   uint8_t hue = 0;
   uint16_t last_hue_update = 0;
+  uint16_t last_update = 0;
 };
 
 
@@ -35,6 +36,7 @@ class LEDRainbowWaveEffect : public LEDMode {
  private:
   uint8_t hue = 0;
   uint16_t last_hue_update = 0;
+  uint16_t last_update = 0;
 };
 }
 
