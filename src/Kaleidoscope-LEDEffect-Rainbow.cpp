@@ -19,11 +19,11 @@
 namespace kaleidoscope {
 
 void LEDRainbowEffect::update(void) {
-  uint16_t now = millis();
-  if ((now - rainbow_last_update) < rainbow_update_delay) {
+  uint16_t elapsed = Kaleidoscope.millisAtCycleStart() - rainbow_last_update;
+  if (elapsed < rainbow_update_delay) {
     return;
   } else {
-    rainbow_last_update = now;
+    rainbow_last_update = Kaleidoscope.millisAtCycleStart();
   }
 
   cRGB rainbow = hsvToRgb(rainbow_hue, rainbow_saturation, rainbow_value);
@@ -47,15 +47,15 @@ void LEDRainbowEffect::update_delay(byte delay) {
 // ---------
 
 void LEDRainbowWaveEffect::update(void) {
-  uint16_t now = millis();
-  if ((now - rainbow_last_update) < rainbow_update_delay) {
+  uint16_t elapsed = Kaleidoscope.millisAtCycleStart() - rainbow_last_update;
+  if (elapsed < rainbow_update_delay) {
     return;
   } else {
-    rainbow_last_update = now;
+    rainbow_last_update = Kaleidoscope.millisAtCycleStart();
   }
 
   for (uint8_t i = 0; i < LED_COUNT; i++) {
-    uint16_t key_hue = rainbow_hue + 16 * (i / 4);
+    uint16_t key_hue = rainbow_hue + 2 * (i);
     if (key_hue >= 255)          {
       key_hue -= 255;
     }
